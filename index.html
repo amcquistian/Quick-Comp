@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Quick Comp - Unit 11-1</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f8;
+}
+
+.header {
+  background: #111;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.quick {
+  color: #9acd32;
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 15px;
+}
+
+#status {
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.ready {
+  background: #dff5df;
+  color: #176b17;
+}
+
+.not-ready {
+  background: #ffdede;
+  color: #a40000;
+}
+
+.item {
+  background: white;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.item-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.quantity {
+  margin-top: 8px;
+  font-size: 17px;
+}
+
+.low {
+  color: #c00000;
+  font-weight: bold;
+}
+
+.buttons {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.used {
+  background: #d9534f;
+  color: white;
+}
+
+.restock {
+  background: #5cb85c;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1><span class="quick">QUICK</span> COMP</h1>
+  <div>UNIT 11-1</div>
+  <div>COMPARTMENT 1 — AIRWAY / OXYGEN</div>
+</div>
+
+<div class="container">
+
+<div id="status"></div>
+
+<div id="inventory"></div>
+
+</div>
+
+<script>
+
+let inventory = [
+{name:"O/P Airways Sizes 0–5", required:6, current:6},
+{name:"N/P Airways – Various Sizes", required:4, current:4},
+{name:"Adult BVM w/ Adult/Peds Mask", required:1, current:1},
+{name:"Infant BVM w/ Infant Mask", required:1, current:1},
+{name:"Portable O₂ – Minimum 1150 PSI", required:1, current:1},
+{name:"Adult NRB Masks", required:4, current:4},
+{name:"Pediatric NRB Masks", required:4, current:4},
+{name:"Adult Nasal Cannulae", required:4, current:4},
+{name:"Child Nasal Cannulae", required:4, current:4},
+{name:"Battery-Powered Portable Suction", required:1, current:1},
+{name:"Rigid Tonsil Tip Suction Catheter", required:2, current:2},
+{name:"FR18 Suction Catheter", required:2, current:2},
+{name:"FR14 Suction Catheter", required:2, current:2},
+{name:"FR8 Suction Catheter", required:2, current:2},
+{name:"FR6 Suction Catheter", required:2, current:2},
+{name:"Supraglottic Airway", required:1, current:1},
+{name:"Complete ETT Kit", required:1, current:1},
+{name:"Pediatric Assessment Equipment", required:1, current:1}
+];
+
+function render() {
+
+  let box = document.getElementById("inventory");
+  box.innerHTML = "";
+
+  inventory.forEach((item,index) => {
+
+    let low = item.current < item.required;
+
+    box.innerHTML += `
+      <div class="item">
+
+        <div class="item-name">
+          ${item.name}
+        </div>
+
+        <div class="quantity ${low ? "low" : ""}">
+          Required: ${item.required}
+          &nbsp; | &nbsp;
+          Current: ${item.current}
+        </div>
+
+        ${low ?
+          `<div class="low">
+          ⚠ NEED ${item.required-item.current}
+          </div>` : ""}
+
+        <div class="buttons">
+
+          <button class="used"
+          onclick="used(${index})">
+          − USED
+          </button>
+
+          <button class="restock"
+          onclick="restock(${index})">
+          + RESTOCKED
+          </button>
+
+        </div>
+
+      </div>
+    `;
+  });
+
+  updateStatus();
+  save();
+}
+
+function used(index) {
+  if(inventory[index].current > 0) {
+    inventory[index].current--;
+    render();
+  }
+}
+
+function restock(index) {
+  inventory[index].current++;
+  render();
+}
+
+function updateStatus() {
+
+  let lowItems =
+    inventory.filter(item =>
+      item.current < item.required
+    );
+
+  let status =
+    document.getElementById("status");
+
+  if(lowItems.length === 0) {
+
+    status.className = "ready";
+    status.innerHTML =
+      "✓ COMPARTMENT READY";
+
+  } else {
+
+    status.className = "not-ready";
+    status.innerHTML =
+      "⚠ NOT READY — " +
+      lowItems.length +
+      " ITEM(S) BELOW PAR";
+  }
+}
+
+function save() {
+  localStorage.setItem(
+    "quickcomp-u11-1-c1",
+    JSON.stringify(inventory)
+  );
+}
+
+function load() {
+
+  let saved =
+    localStorage.getItem(
+      "quickcomp-u11-1-c1"
+    );
+
+  if(saved) {
+    inventory = JSON.parse(saved);
+  }
+}
+
+load();
+render();
+
+</script>
+
+</body>
+</html>
