@@ -4,36 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Quick Comp - Unit 11-1</title>
+<title>Quick Comp | Unit 11-1 | Compartment 1</title>
 
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background: #f4f6f8;
+    background: #f3f5f7;
     color: #222;
 }
 
 .header {
     background: #111;
     color: white;
-    padding: 20px;
     text-align: center;
+    padding: 20px 15px;
 }
 
 .header h1 {
     margin: 0;
-    font-size: 30px;
+    font-size: 32px;
 }
 
-.header p {
-    margin: 5px 0 0;
-    color: #9cff57;
+.tagline {
+    color: #8ee34f;
     font-weight: bold;
+    margin-top: 5px;
+}
+
+.unit-info {
+    margin-top: 12px;
+    font-size: 16px;
 }
 
 .container {
-    max-width: 700px;
+    max-width: 750px;
     margin: auto;
     padding: 15px;
 }
@@ -46,35 +55,114 @@ body {
     box-shadow: 0 2px 6px rgba(0,0,0,.12);
 }
 
-h2 {
-    margin-top: 0;
+/* STATUS */
+
+.status-card {
+    text-align: center;
+    border: 4px solid #28a745;
 }
+
+.status-card.ready {
+    border-color: #28a745;
+    background: #effaf2;
+}
+
+.status-card.warning {
+    border-color: #f0ad00;
+    background: #fff9e8;
+}
+
+.status-card.not-ready {
+    border-color: #dc3545;
+    background: #fff0f0;
+}
+
+.status-title {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.ready-text {
+    color: #218838;
+}
+
+.warning-text {
+    color: #b57900;
+}
+
+.not-ready-text {
+    color: #c82333;
+}
+
+.next-expiration {
+    margin-top: 15px;
+    padding-top: 12px;
+    border-top: 1px solid #ccc;
+}
+
+.next-expiration strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* INVENTORY */
 
 .inventory-item {
     border-bottom: 1px solid #ddd;
-    padding: 12px 0;
+    padding: 16px 0;
 }
 
 .inventory-item:last-child {
     border-bottom: none;
 }
 
+.inventory-item.low {
+    background: #fff0f0;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.inventory-item.expiring {
+    background: #fff9e8;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.inventory-item.expired {
+    background: #ffe5e5;
+    padding: 12px;
+    border: 2px solid #dc3545;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
 .item-name {
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 8px;
+}
+
+.required {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0 10px;
 }
 
 .controls {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    margin-bottom: 10px;
 }
 
-button {
+.qty-button {
+    width: 44px;
+    height: 40px;
     border: none;
     border-radius: 7px;
-    padding: 8px 14px;
-    font-size: 18px;
+    font-size: 22px;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -89,71 +177,105 @@ button {
 }
 
 .count {
-    min-width: 30px;
+    min-width: 45px;
     text-align: center;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
 }
 
-.required {
-    font-size: 13px;
-    color: #666;
-}
-
-input[type="text"] {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px;
-    margin-top: 8px;
-    border: 1px solid #bbb;
-    border-radius: 7px;
-    font-size: 16px;
-}
-
-.verify-box {
-    background: #eef9e8;
-    border: 2px solid #72c442;
-}
-
-.checkbox-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.checkbox-row input {
-    width: 22px;
-    height: 22px;
-}
-
-.submit-btn {
-    width: 100%;
-    background: #72c442;
-    color: #111;
+.item-status {
+    font-size: 14px;
     font-weight: bold;
-    font-size: 18px;
-    padding: 14px;
-    margin-top: 15px;
-}
-
-.status {
-    text-align: center;
-    margin-top: 12px;
-    font-weight: bold;
-}
-
-.warning {
-    color: #c62828;
+    margin-top: 7px;
 }
 
 .good {
     color: #218838;
 }
 
+.warn {
+    color: #b57900;
+}
+
+.bad {
+    color: #c82333;
+}
+
+/* EXPIRATION */
+
+.expiration-area {
+    margin-top: 10px;
+}
+
+.expiration-area label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.expiration-area input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #bbb;
+    border-radius: 7px;
+}
+
+/* VERIFICATION */
+
+.verify-card {
+    border: 2px solid #8ee34f;
+}
+
+.text-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #aaa;
+    border-radius: 7px;
+    margin-top: 6px;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.checkbox-row input {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.verify-button {
+    width: 100%;
+    margin-top: 18px;
+    background: #8ee34f;
+    color: #111;
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.verification-message {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.last-check {
+    line-height: 1.8;
+}
+
 .footer {
     text-align: center;
-    padding: 20px;
+    padding: 25px;
     color: #777;
     font-size: 13px;
 }
@@ -164,252 +286,1077 @@ input[type="text"] {
 
 <div class="header">
     <h1>QUICK COMP</h1>
-    <p>SCAN • CHECK • VERIFY • READY</p>
+    <div class="tagline">
+        SCAN • CHECK • VERIFY • READY
+    </div>
+
+    <div class="unit-info">
+        <strong>UNIT 11-1</strong><br>
+        Compartment 1 – Airway / Respiratory
+    </div>
 </div>
 
 <div class="container">
 
-<div class="card">
-    <h2>Unit 11-1</h2>
-    <strong>Compartment 1 – Airway / Respiratory</strong>
-    <p>Verify required inventory and adjust quantities if equipment is used or restocked.</p>
-</div>
+<!-- SYSTEM STATUS -->
 
-<div class="card">
-    <h2>Inventory</h2>
+<div id="systemCard" class="card status-card ready">
 
-    <div class="inventory-item">
-        <div class="item-name">Adult BVM</div>
-        <div class="required">Required: 1</div>
-        <div class="controls">
-            <button class="minus" onclick="changeCount('adultBVM',-1)">−</button>
-            <span class="count" id="adultBVM">1</span>
-            <button class="plus" onclick="changeCount('adultBVM',1)">+</button>
-        </div>
+    <div id="systemStatus"
+         class="status-title ready-text">
+        🟢 SYSTEM READY
     </div>
 
-    <div class="inventory-item">
-        <div class="item-name">Pediatric BVM</div>
-        <div class="required">Required: 1</div>
-        <div class="controls">
-            <button class="minus" onclick="changeCount('pedsBVM',-1)">−</button>
-            <span class="count" id="pedsBVM">1</span>
-            <button class="plus" onclick="changeCount('pedsBVM',1)">+</button>
-        </div>
+    <div id="systemMessage">
+        All required inventory requirements are met.
     </div>
 
-    <div class="inventory-item">
-        <div class="item-name">Infant BVM</div>
-        <div class="required">Required: 1</div>
-        <div class="controls">
-            <button class="minus" onclick="changeCount('infantBVM',-1)">−</button>
-            <span class="count" id="infantBVM">1</span>
-            <button class="plus" onclick="changeCount('infantBVM',1)">+</button>
-        </div>
-    </div>
-
-    <div class="inventory-item">
-        <div class="item-name">Adult Non-Rebreather Masks</div>
-        <div class="required">Required: 2</div>
-        <div class="controls">
-            <button class="minus" onclick="changeCount('adultNRB',-1)">−</button>
-            <span class="count" id="adultNRB">2</span>
-            <button class="plus" onclick="changeCount('adultNRB',1)">+</button>
-        </div>
-    </div>
-
-    <div class="inventory-item">
-        <div class="item-name">Pediatric Non-Rebreather Masks</div>
-        <div class="required">Required: 1</div>
-        <div class="controls">
-            <button class="minus" onclick="changeCount('pedsNRB',-1)">−</button>
-            <span class="count" id="pedsNRB">1</span>
-            <button class="plus" onclick="changeCount('pedsNRB',1)">+</button>
-        </div>
-    </div>
-
-    <div class="inventory-item">
-        <div class="item-name">Adult Nasal Cannulas</div>
-        <div class="required">Required: 2</div>
-        <div class="controls">
-            <button class="minus" onclick="changeCount('adultNC',-1)">−</button>
-            <span class="count" id="adultNC">2</span>
-            <button class="plus" onclick="changeCount('adultNC',1)">+</button>
-        </div>
-    </div>
-
-    <div class="inventory-item">
-        <div class="item-name">Pediatric Nasal Cannulas</div>
-        <div class="required">Required: 1</div>
-        <div class="controls">
-            <button class="minus" onclick="changeCount('pedsNC',-1)">−</button>
-            <span class="count" id="pedsNC">1</span>
-            <button class="plus" onclick="changeCount('pedsNC',1)">+</button>
-        </div>
-    </div>
-
-    <div class="inventory-item">
-        <div class="item-name">OPA Set</div>
-        <div class="required">Required: 1 complete set</div>
-        <div class="controls">
-            <button class="minus" onclick="changeCount('opa',-1)">−</button>
-            <span class="count" id="opa">1</span>
-            <button class="plus" onclick="changeCount('opa',1)">+</button>
-        </div>
-    </div>
-
-    <div class="inventory-item">
-        <div class="item-name">NPA Set</div>
-        <div class="required">Required: 1 complete set</div>
-        <div class="controls">
-            <button class="minus" onclick="changeCount('npa',-1)">−</button>
-            <span class="count" id="npa">1</span>
-            <button class="plus" onclick="changeCount('npa',1)">+</button>
-        </div>
-    </div>
-
-    <div class="inventory-item">
-        <div class="item-name">Oxygen Tubing</div>
-        <div class="required">Required: 2</div>
-        <div class="controls">
-            <button class="minus" onclick="changeCount('o2tubing',-1)">−</button>
-            <span class="count" id="o2tubing">2</span>
-            <button class="plus" onclick="changeCount('o2tubing',1)">+</button>
+    <div class="next-expiration">
+        <strong>📅 NEXT EXPIRATION</strong>
+        <div id="nextExpiration">
+            No expiration dates entered
         </div>
     </div>
 
 </div>
 
-<div class="card verify-box">
 
-    <h2>Employee Compartment Verification</h2>
-
-    <p>
-        By completing this section, I verify that I physically checked
-        Compartment 1 on Unit 11-1 and confirmed the inventory quantities
-        shown above.
-    </p>
-
-    <label><strong>Employee Name</strong></label>
-    <input
-        type="text"
-        id="employeeName"
-        placeholder="Enter first and last name"
-    >
-
-    <div class="checkbox-row">
-        <input type="checkbox" id="verified">
-        <label for="verified">
-            I physically checked this compartment and verified that the
-            inventory quantities entered above are accurate.
-        </label>
-    </div>
-
-    <button class="submit-btn" onclick="verifyCompartment()">
-        VERIFY COMPARTMENT
-    </button>
-
-    <div id="status" class="status"></div>
-
-</div>
+<!-- INVENTORY -->
 
 <div class="card">
-    <h2>Last Verification</h2>
-    <p><strong>Employee:</strong> <span id="lastEmployee">Not yet verified</span></p>
-    <p><strong>Date/Time:</strong> <span id="lastTime">--</span></p>
+
+<h2>Compartment Inventory</h2>
+
+<p>
+Use + or − when supplies are used or restocked.
+Enter the earliest expiration date for applicable items.
+</p>
+
+<div id="inventory"></div>
+
+</div>
+
+
+<!-- VERIFICATION -->
+
+<div class="card verify-card">
+
+<h2>Employee Verification</h2>
+
+<p>
+I certify that I physically checked Unit 11-1,
+Compartment 1 and verified the quantities and
+expiration information shown above.
+</p>
+
+<label>
+<strong>Employee Name</strong>
+</label>
+
+<input
+    id="employeeName"
+    class="text-input"
+    type="text"
+    placeholder="First and last name"
+>
+
+<div class="checkbox-row">
+
+<input
+    id="verificationCheck"
+    type="checkbox"
+>
+
+<label for="verificationCheck">
+I physically checked this compartment and confirm
+that the inventory quantities and expiration dates
+shown are accurate.
+</label>
+
+</div>
+
+<button
+    class="verify-button"
+    onclick="verifyCompartment()">
+    VERIFY COMPARTMENT
+</button>
+
+<div
+    id="verificationMessage"
+    class="verification-message">
 </div>
 
 </div>
+
+
+<!-- LAST CHECK -->
+
+<div class="card last-check">
+
+<h2>Last Verification</h2>
+
+<strong>Unit:</strong>
+11-1
+<br>
+
+<strong>Compartment:</strong>
+1 – Airway / Respiratory
+<br>
+
+<strong>Employee:</strong>
+<span id="lastEmployee">
+Not yet verified
+</span>
+<br>
+
+<strong>Date/Time:</strong>
+<span id="lastTime">
+--
+</span>
+<br>
+
+<strong>Status at Verification:</strong>
+<span id="lastStatus">
+--
+</span>
+
+</div>
+
+</div>
+
 
 <div class="footer">
-    Quick Comp – EMS Inventory Verification
+Quick Comp – EMS Inventory Verification System
 </div>
+
 
 <script>
 
-function changeCount(id, amount) {
-    const element = document.getElementById(id);
-    let current = parseInt(element.innerText);
+/*
+==================================================
+QUICK COMP INVENTORY
+UNIT 11-1
+COMPARTMENT 1
+==================================================
 
-    current += amount;
+required = minimum quantity needed
 
-    if (current < 0) {
-        current = 0;
-    }
+expiration = true means Quick Comp will
+allow an earliest expiration date to be entered.
 
-    element.innerText = current;
+ET tubes and suction unit intentionally excluded.
+*/
+
+const inventory = [
+
+{
+id: "adultBVM",
+name: "Adult BVM",
+required: 1,
+current: 1,
+expiration: true
+},
+
+{
+id: "pediatricBVM",
+name: "Pediatric BVM",
+required: 1,
+current: 1,
+expiration: true
+},
+
+{
+id: "infantBVM",
+name: "Infant BVM",
+required: 1,
+current: 1,
+expiration: true
+},
+
+{
+id: "adultNRB",
+name: "Adult Non-Rebreather Mask",
+required: 2,
+current: 2,
+expiration: true
+},
+
+{
+id: "pediatricNRB",
+name: "Pediatric Non-Rebreather Mask",
+required: 1,
+current: 1,
+expiration: true
+},
+
+{
+id: "adultNC",
+name: "Adult Nasal Cannula",
+required: 2,
+current: 2,
+expiration: true
+},
+
+{
+id: "pediatricNC",
+name: "Pediatric Nasal Cannula",
+required: 1,
+current: 1,
+expiration: true
+},
+
+{
+id: "opa",
+name: "OPA Set",
+required: 1,
+current: 1,
+expiration: false
+},
+
+{
+id: "npa",
+name: "NPA Set",
+required: 1,
+current: 1,
+expiration: true
+},
+
+{
+id: "oxygenTubing",
+name: "Oxygen Tubing",
+required: 2,
+current: 2,
+expiration: true
 }
+
+];
+
+
+/*
+==================================================
+LOAD SAVED INFORMATION
+==================================================
+*/
+
+inventory.forEach(item => {
+
+const savedQty =
+localStorage.getItem(
+"QC_11-1_C1_" + item.id + "_qty"
+);
+
+if(savedQty !== null) {
+item.current = parseInt(savedQty);
+}
+
+if(item.expiration) {
+
+const savedExpiration =
+localStorage.getItem(
+"QC_11-1_C1_" + item.id + "_exp"
+);
+
+if(savedExpiration) {
+item.expirationDate = savedExpiration;
+}
+
+}
+
+});
+
+
+/*
+==================================================
+BUILD INVENTORY DISPLAY
+==================================================
+*/
+
+function renderInventory() {
+
+const container =
+document.getElementById("inventory");
+
+container.innerHTML = "";
+
+inventory.forEach(item => {
+
+const div =
+document.createElement("div");
+
+div.className = "inventory-item";
+
+div.id =
+"item-" + item.id;
+
+let expirationHTML = "";
+
+if(item.expiration) {
+
+expirationHTML = `
+
+<div class="expiration-area">
+
+<label>
+Earliest Expiration Date
+</label>
+
+<input
+type="date"
+id="exp-${item.id}"
+value="${item.expirationDate || ""}"
+onchange="updateExpiration('${item.id}', this.value)"
+>
+
+</div>
+
+`;
+
+}
+
+div.innerHTML = `
+
+<div class="item-name">
+${item.name}
+</div>
+
+<div class="required">
+Required Minimum: ${item.required}
+</div>
+
+<div class="controls">
+
+<button
+class="qty-button minus"
+onclick="changeQuantity('${item.id}', -1)">
+−
+</button>
+
+<span
+class="count"
+id="qty-${item.id}">
+${item.current}
+</span>
+
+<button
+class="qty-button plus"
+onclick="changeQuantity('${item.id}', 1)">
++
+</button>
+
+</div>
+
+${expirationHTML}
+
+<div
+id="status-${item.id}"
+class="item-status">
+</div>
+
+`;
+
+container.appendChild(div);
+
+});
+
+updateSystemStatus();
+
+}
+
+
+/*
+==================================================
+CHANGE QUANTITY
+==================================================
+*/
+
+function changeQuantity(id, amount) {
+
+const item =
+inventory.find(i => i.id === id);
+
+item.current += amount;
+
+if(item.current < 0) {
+item.current = 0;
+}
+
+localStorage.setItem(
+"QC_11-1_C1_" + item.id + "_qty",
+item.current
+);
+
+document.getElementById(
+"qty-" + item.id
+).innerText =
+item.current;
+
+updateSystemStatus();
+
+}
+
+
+/*
+==================================================
+UPDATE EXPIRATION
+==================================================
+*/
+
+function updateExpiration(id, value) {
+
+const item =
+inventory.find(i => i.id === id);
+
+item.expirationDate = value;
+
+localStorage.setItem(
+"QC_11-1_C1_" + item.id + "_exp",
+value
+);
+
+updateSystemStatus();
+
+}
+
+
+/*
+==================================================
+DATE CALCULATION
+==================================================
+*/
+
+function getDaysUntilExpiration(dateString) {
+
+if(!dateString) {
+return null;
+}
+
+const today = new Date();
+
+today.setHours(0,0,0,0);
+
+const expiration =
+new Date(dateString + "T00:00:00");
+
+const difference =
+expiration - today;
+
+return Math.ceil(
+difference / (1000 * 60 * 60 * 24)
+);
+
+}
+
+
+/*
+==================================================
+SYSTEM STATUS
+==================================================
+*/
+
+function updateSystemStatus() {
+
+let notReady = false;
+
+let expirationWarning = false;
+
+let problems = [];
+
+let earliestItem = null;
+
+let earliestDate = null;
+
+
+/*
+CHECK EVERY ITEM
+*/
+
+inventory.forEach(item => {
+
+const itemDiv =
+document.getElementById(
+"item-" + item.id
+);
+
+const statusDiv =
+document.getElementById(
+"status-" + item.id
+);
+
+itemDiv.className =
+"inventory-item";
+
+let messages = [];
+
+
+/*
+QUANTITY CHECK
+*/
+
+if(item.current < item.required) {
+
+notReady = true;
+
+problems.push(
+item.name +
+" (" +
+item.current +
+"/" +
+item.required +
+")"
+);
+
+messages.push(
+"🔴 LOW — RESTOCK REQUIRED"
+);
+
+itemDiv.classList.add("low");
+
+}
+
+
+/*
+EXPIRATION CHECK
+*/
+
+if(
+item.expiration &&
+item.expirationDate
+) {
+
+const days =
+getDaysUntilExpiration(
+item.expirationDate
+);
+
+
+/*
+FIND EARLIEST EXPIRATION
+*/
+
+const expirationDate =
+new Date(
+item.expirationDate +
+"T00:00:00"
+);
+
+if(
+earliestDate === null ||
+expirationDate < earliestDate
+) {
+
+earliestDate =
+expirationDate;
+
+earliestItem =
+item;
+
+}
+
+
+/*
+EXPIRED
+*/
+
+if(days < 0) {
+
+notReady = true;
+
+messages.push(
+"🔴 EXPIRED — REMOVE / REPLACE"
+);
+
+itemDiv.classList.add(
+"expired"
+);
+
+}
+
+
+/*
+EXPIRES TODAY
+*/
+
+else if(days === 0) {
+
+expirationWarning = true;
+
+messages.push(
+"🟡 EXPIRES TODAY"
+);
+
+itemDiv.classList.add(
+"expiring"
+);
+
+}
+
+
+/*
+30 DAY WARNING
+*/
+
+else if(days <= 30) {
+
+expirationWarning = true;
+
+messages.push(
+"🟡 EXPIRING SOON — " +
+days +
+" days remaining"
+);
+
+itemDiv.classList.add(
+"expiring"
+);
+
+}
+
+}
+
+
+/*
+NORMAL ITEM
+*/
+
+if(messages.length === 0) {
+
+messages.push(
+"✓ Inventory requirement met"
+);
+
+statusDiv.className =
+"item-status good";
+
+}
+
+else if(
+messages.some(
+m => m.includes("🔴")
+)
+) {
+
+statusDiv.className =
+"item-status bad";
+
+}
+
+else {
+
+statusDiv.className =
+"item-status warn";
+
+}
+
+statusDiv.innerHTML =
+messages.join("<br>");
+
+});
+
+
+/*
+==================================================
+DISPLAY EARLIEST EXPIRATION
+==================================================
+*/
+
+const nextExpiration =
+document.getElementById(
+"nextExpiration"
+);
+
+if(
+earliestItem &&
+earliestDate
+) {
+
+const days =
+getDaysUntilExpiration(
+earliestItem.expirationDate
+);
+
+const formattedDate =
+earliestDate.toLocaleDateString();
+
+let dayText = "";
+
+if(days < 0) {
+
+dayText =
+Math.abs(days) +
+" days EXPIRED";
+
+}
+
+else if(days === 0) {
+
+dayText =
+"EXPIRES TODAY";
+
+}
+
+else {
+
+dayText =
+days +
+" days remaining";
+
+}
+
+nextExpiration.innerHTML =
+
+"<strong>" +
+earliestItem.name +
+"</strong><br>" +
+
+formattedDate +
+"<br>" +
+
+dayText;
+
+}
+
+else {
+
+nextExpiration.innerHTML =
+"No expiration dates entered";
+
+}
+
+
+/*
+==================================================
+DISPLAY OVERALL STATUS
+==================================================
+*/
+
+const systemCard =
+document.getElementById(
+"systemCard"
+);
+
+const systemStatus =
+document.getElementById(
+"systemStatus"
+);
+
+const systemMessage =
+document.getElementById(
+"systemMessage"
+);
+
+
+/*
+NOT READY
+*/
+
+if(notReady) {
+
+systemCard.className =
+"card status-card not-ready";
+
+systemStatus.className =
+"status-title not-ready-text";
+
+systemStatus.innerHTML =
+"🔴 SYSTEM NOT READY";
+
+if(problems.length > 0) {
+
+systemMessage.innerHTML =
+"<strong>Restock Required:</strong><br>" +
+problems.join("<br>");
+
+}
+
+else {
+
+systemMessage.innerHTML =
+"Expired equipment requires replacement.";
+
+}
+
+}
+
+
+/*
+WARNING
+*/
+
+else if(expirationWarning) {
+
+systemCard.className =
+"card status-card warning";
+
+systemStatus.className =
+"status-title warning-text";
+
+systemStatus.innerHTML =
+"🟡 SYSTEM READY — EXPIRATION WARNING";
+
+systemMessage.innerHTML =
+"Required quantities are present, but one or more items expire within 30 days.";
+
+}
+
+
+/*
+READY
+*/
+
+else {
+
+systemCard.className =
+"card status-card ready";
+
+systemStatus.className =
+"status-title ready-text";
+
+systemStatus.innerHTML =
+"🟢 SYSTEM READY";
+
+systemMessage.innerHTML =
+"All required inventory requirements are met.";
+
+}
+
+}
+
+
+/*
+==================================================
+GET CURRENT STATUS
+==================================================
+*/
+
+function getCurrentSystemStatus() {
+
+let notReady = false;
+
+let warning = false;
+
+inventory.forEach(item => {
+
+if(item.current < item.required) {
+notReady = true;
+}
+
+if(
+item.expiration &&
+item.expirationDate
+) {
+
+const days =
+getDaysUntilExpiration(
+item.expirationDate
+);
+
+if(days < 0) {
+notReady = true;
+}
+
+else if(days <= 30) {
+warning = true;
+}
+
+}
+
+});
+
+if(notReady) {
+return "NOT READY";
+}
+
+if(warning) {
+return "READY — EXPIRATION WARNING";
+}
+
+return "READY";
+
+}
+
+
+/*
+==================================================
+EMPLOYEE VERIFICATION
+==================================================
+*/
 
 function verifyCompartment() {
 
-    const employee =
-        document.getElementById("employeeName").value.trim();
+const employee =
+document.getElementById(
+"employeeName"
+).value.trim();
 
-    const verified =
-        document.getElementById("verified").checked;
+const checked =
+document.getElementById(
+"verificationCheck"
+).checked;
 
-    const status =
-        document.getElementById("status");
+const message =
+document.getElementById(
+"verificationMessage"
+);
 
-    if (employee === "") {
-        status.innerText =
-            "Please enter your name before verifying.";
-        status.className = "status warning";
-        return;
-    }
+if(employee === "") {
 
-    if (!verified) {
-        status.innerText =
-            "Please check the verification box.";
-        status.className = "status warning";
-        return;
-    }
+message.innerHTML =
+"Please enter your first and last name.";
 
-    const now = new Date();
+message.className =
+"verification-message bad";
 
-    document.getElementById("lastEmployee").innerText =
-        employee;
+return;
 
-    document.getElementById("lastTime").innerText =
-        now.toLocaleString();
-
-    status.innerText =
-        "✓ Compartment 1 Verified";
-
-    status.className =
-        "status good";
-
-    localStorage.setItem(
-        "quickCompUnit11-1Comp1Employee",
-        employee
-    );
-
-    localStorage.setItem(
-        "quickCompUnit11-1Comp1Time",
-        now.toLocaleString()
-    );
 }
 
-window.onload = function() {
+if(!checked) {
 
-    const employee = localStorage.getItem(
-        "quickCompUnit11-1Comp1Employee"
-    );
+message.innerHTML =
+"Please confirm that you physically checked the compartment.";
 
-    const time = localStorage.getItem(
-        "quickCompUnit11-1Comp1Time"
-    );
+message.className =
+"verification-message bad";
 
-    if (employee) {
-        document.getElementById("lastEmployee").innerText =
-            employee;
-    }
+return;
 
-    if (time) {
-        document.getElementById("lastTime").innerText =
-            time;
-    }
-};
+}
+
+const now =
+new Date();
+
+const systemStatus =
+getCurrentSystemStatus();
+
+localStorage.setItem(
+"QC_11-1_C1_lastEmployee",
+employee
+);
+
+localStorage.setItem(
+"QC_11-1_C1_lastTime",
+now.toLocaleString()
+);
+
+localStorage.setItem(
+"QC_11-1_C1_lastStatus",
+systemStatus
+);
+
+document.getElementById(
+"lastEmployee"
+).innerText =
+employee;
+
+document.getElementById(
+"lastTime"
+).innerText =
+now.toLocaleString();
+
+document.getElementById(
+"lastStatus"
+).innerText =
+systemStatus;
+
+
+if(systemStatus === "NOT READY") {
+
+message.innerHTML =
+"✓ CHECK RECORDED — 🔴 UNIT NOT READY";
+
+message.className =
+"verification-message bad";
+
+}
+
+else if(
+systemStatus ===
+"READY — EXPIRATION WARNING"
+) {
+
+message.innerHTML =
+"✓ CHECK RECORDED — 🟡 EXPIRATION WARNING";
+
+message.className =
+"verification-message warn";
+
+}
+
+else {
+
+message.innerHTML =
+"✓ COMPARTMENT VERIFIED — 🟢 READY";
+
+message.className =
+"verification-message good";
+
+}
+
+}
+
+
+/*
+==================================================
+LOAD LAST VERIFICATION
+==================================================
+*/
+
+function loadLastVerification() {
+
+const employee =
+localStorage.getItem(
+"QC_11-1_C1_lastEmployee"
+);
+
+const time =
+localStorage.getItem(
+"QC_11-1_C1_lastTime"
+);
+
+const status =
+localStorage.getItem(
+"QC_11-1_C1_lastStatus"
+);
+
+if(employee) {
+
+document.getElementById(
+"lastEmployee"
+).innerText =
+employee;
+
+}
+
+if(time) {
+
+document.getElementById(
+"lastTime"
+).innerText =
+time;
+
+}
+
+if(status) {
+
+document.getElementById(
+"lastStatus"
+).innerText =
+status;
+
+}
+
+}
+
+
+/*
+==================================================
+START QUICK COMP
+==================================================
+*/
+
+renderInventory();
+
+loadLastVerification();
 
 </script>
 
