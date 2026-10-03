@@ -8,97 +8,154 @@
 
 <style>
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f4f6f8;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f6f8;
+    color: #222;
 }
 
 .header {
-  background: #111;
-  color: white;
-  padding: 20px;
-  text-align: center;
+    background: #111;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
 .header h1 {
-  margin: 0;
-  font-size: 30px;
+    margin: 0;
+    font-size: 30px;
 }
 
-.quick {
-  color: #9acd32;
+.header p {
+    margin: 5px 0 0;
+    color: #9cff57;
+    font-weight: bold;
 }
 
 .container {
-  max-width: 700px;
-  margin: auto;
-  padding: 15px;
+    max-width: 700px;
+    margin: auto;
+    padding: 15px;
 }
 
-#status {
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 21px;
-  font-weight: bold;
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.12);
 }
 
-.ready {
-  background: #dff5df;
-  color: #176b17;
+h2 {
+    margin-top: 0;
 }
 
-.not-ready {
-  background: #ffdede;
-  color: #a40000;
+.inventory-item {
+    border-bottom: 1px solid #ddd;
+    padding: 12px 0;
 }
 
-.item {
-  background: white;
-  margin-bottom: 10px;
-  padding: 15px;
-  border-radius: 8px;
+.inventory-item:last-child {
+    border-bottom: none;
 }
 
 .item-name {
-  font-size: 18px;
-  font-weight: bold;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
-.quantity {
-  margin-top: 8px;
-  font-size: 17px;
-}
-
-.low {
-  color: #c00000;
-  font-weight: bold;
-}
-
-.buttons {
-  margin-top: 12px;
-  display: flex;
-  gap: 10px;
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 button {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: bold;
+    border: none;
+    border-radius: 7px;
+    padding: 8px 14px;
+    font-size: 18px;
+    cursor: pointer;
 }
 
-.used {
-  background: #d9534f;
-  color: white;
+.minus {
+    background: #dc3545;
+    color: white;
 }
 
-.restock {
-  background: #5cb85c;
-  color: white;
+.plus {
+    background: #28a745;
+    color: white;
+}
+
+.count {
+    min-width: 30px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.required {
+    font-size: 13px;
+    color: #666;
+}
+
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1px solid #bbb;
+    border-radius: 7px;
+    font-size: 16px;
+}
+
+.verify-box {
+    background: #eef9e8;
+    border: 2px solid #72c442;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.checkbox-row input {
+    width: 22px;
+    height: 22px;
+}
+
+.submit-btn {
+    width: 100%;
+    background: #72c442;
+    color: #111;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 14px;
+    margin-top: 15px;
+}
+
+.status {
+    text-align: center;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.warning {
+    color: #c62828;
+}
+
+.good {
+    color: #218838;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+    font-size: 13px;
 }
 </style>
 </head>
@@ -106,150 +163,253 @@ button {
 <body>
 
 <div class="header">
-  <h1><span class="quick">QUICK</span> COMP</h1>
-  <div>UNIT 11-1</div>
-  <div>COMPARTMENT 1 — AIRWAY / OXYGEN</div>
+    <h1>QUICK COMP</h1>
+    <p>SCAN • CHECK • VERIFY • READY</p>
 </div>
 
 <div class="container">
 
-<div id="status"></div>
+<div class="card">
+    <h2>Unit 11-1</h2>
+    <strong>Compartment 1 – Airway / Respiratory</strong>
+    <p>Verify required inventory and adjust quantities if equipment is used or restocked.</p>
+</div>
 
-<div id="inventory"></div>
+<div class="card">
+    <h2>Inventory</h2>
 
+    <div class="inventory-item">
+        <div class="item-name">Adult BVM</div>
+        <div class="required">Required: 1</div>
+        <div class="controls">
+            <button class="minus" onclick="changeCount('adultBVM',-1)">−</button>
+            <span class="count" id="adultBVM">1</span>
+            <button class="plus" onclick="changeCount('adultBVM',1)">+</button>
+        </div>
+    </div>
+
+    <div class="inventory-item">
+        <div class="item-name">Pediatric BVM</div>
+        <div class="required">Required: 1</div>
+        <div class="controls">
+            <button class="minus" onclick="changeCount('pedsBVM',-1)">−</button>
+            <span class="count" id="pedsBVM">1</span>
+            <button class="plus" onclick="changeCount('pedsBVM',1)">+</button>
+        </div>
+    </div>
+
+    <div class="inventory-item">
+        <div class="item-name">Infant BVM</div>
+        <div class="required">Required: 1</div>
+        <div class="controls">
+            <button class="minus" onclick="changeCount('infantBVM',-1)">−</button>
+            <span class="count" id="infantBVM">1</span>
+            <button class="plus" onclick="changeCount('infantBVM',1)">+</button>
+        </div>
+    </div>
+
+    <div class="inventory-item">
+        <div class="item-name">Adult Non-Rebreather Masks</div>
+        <div class="required">Required: 2</div>
+        <div class="controls">
+            <button class="minus" onclick="changeCount('adultNRB',-1)">−</button>
+            <span class="count" id="adultNRB">2</span>
+            <button class="plus" onclick="changeCount('adultNRB',1)">+</button>
+        </div>
+    </div>
+
+    <div class="inventory-item">
+        <div class="item-name">Pediatric Non-Rebreather Masks</div>
+        <div class="required">Required: 1</div>
+        <div class="controls">
+            <button class="minus" onclick="changeCount('pedsNRB',-1)">−</button>
+            <span class="count" id="pedsNRB">1</span>
+            <button class="plus" onclick="changeCount('pedsNRB',1)">+</button>
+        </div>
+    </div>
+
+    <div class="inventory-item">
+        <div class="item-name">Adult Nasal Cannulas</div>
+        <div class="required">Required: 2</div>
+        <div class="controls">
+            <button class="minus" onclick="changeCount('adultNC',-1)">−</button>
+            <span class="count" id="adultNC">2</span>
+            <button class="plus" onclick="changeCount('adultNC',1)">+</button>
+        </div>
+    </div>
+
+    <div class="inventory-item">
+        <div class="item-name">Pediatric Nasal Cannulas</div>
+        <div class="required">Required: 1</div>
+        <div class="controls">
+            <button class="minus" onclick="changeCount('pedsNC',-1)">−</button>
+            <span class="count" id="pedsNC">1</span>
+            <button class="plus" onclick="changeCount('pedsNC',1)">+</button>
+        </div>
+    </div>
+
+    <div class="inventory-item">
+        <div class="item-name">OPA Set</div>
+        <div class="required">Required: 1 complete set</div>
+        <div class="controls">
+            <button class="minus" onclick="changeCount('opa',-1)">−</button>
+            <span class="count" id="opa">1</span>
+            <button class="plus" onclick="changeCount('opa',1)">+</button>
+        </div>
+    </div>
+
+    <div class="inventory-item">
+        <div class="item-name">NPA Set</div>
+        <div class="required">Required: 1 complete set</div>
+        <div class="controls">
+            <button class="minus" onclick="changeCount('npa',-1)">−</button>
+            <span class="count" id="npa">1</span>
+            <button class="plus" onclick="changeCount('npa',1)">+</button>
+        </div>
+    </div>
+
+    <div class="inventory-item">
+        <div class="item-name">Oxygen Tubing</div>
+        <div class="required">Required: 2</div>
+        <div class="controls">
+            <button class="minus" onclick="changeCount('o2tubing',-1)">−</button>
+            <span class="count" id="o2tubing">2</span>
+            <button class="plus" onclick="changeCount('o2tubing',1)">+</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="card verify-box">
+
+    <h2>Employee Compartment Verification</h2>
+
+    <p>
+        By completing this section, I verify that I physically checked
+        Compartment 1 on Unit 11-1 and confirmed the inventory quantities
+        shown above.
+    </p>
+
+    <label><strong>Employee Name</strong></label>
+    <input
+        type="text"
+        id="employeeName"
+        placeholder="Enter first and last name"
+    >
+
+    <div class="checkbox-row">
+        <input type="checkbox" id="verified">
+        <label for="verified">
+            I physically checked this compartment and verified that the
+            inventory quantities entered above are accurate.
+        </label>
+    </div>
+
+    <button class="submit-btn" onclick="verifyCompartment()">
+        VERIFY COMPARTMENT
+    </button>
+
+    <div id="status" class="status"></div>
+
+</div>
+
+<div class="card">
+    <h2>Last Verification</h2>
+    <p><strong>Employee:</strong> <span id="lastEmployee">Not yet verified</span></p>
+    <p><strong>Date/Time:</strong> <span id="lastTime">--</span></p>
+</div>
+
+</div>
+
+<div class="footer">
+    Quick Comp – EMS Inventory Verification
 </div>
 
 <script>
 
-let inventory = [
-{name:"O/P Airways Sizes 0–5", required:6, current:6},
-{name:"N/P Airways – Various Sizes", required:4, current:4},
-{name:"Adult BVM w/ Adult/Peds Mask", required:1, current:1},
-{name:"Infant BVM w/ Infant Mask", required:1, current:1},
-{name:"Portable O₂ – Minimum 1150 PSI", required:1, current:1},
-{name:"Adult NRB Masks", required:4, current:4},
-{name:"Pediatric NRB Masks", required:4, current:4},
-{name:"Adult Nasal Cannulae", required:4, current:4},
-{name:"Child Nasal Cannulae", required:4, current:4},
-{name:"Battery-Powered Portable Suction", required:1, current:1},
-{name:"Rigid Tonsil Tip Suction Catheter", required:2, current:2},
-{name:"FR18 Suction Catheter", required:2, current:2},
-{name:"FR14 Suction Catheter", required:2, current:2},
-{name:"FR8 Suction Catheter", required:2, current:2},
-{name:"FR6 Suction Catheter", required:2, current:2},
-{name:"Supraglottic Airway", required:1, current:1},
-{name:"Complete ETT Kit", required:1, current:1},
-{name:"Pediatric Assessment Equipment", required:1, current:1}
-];
+function changeCount(id, amount) {
+    const element = document.getElementById(id);
+    let current = parseInt(element.innerText);
 
-function render() {
+    current += amount;
 
-  let box = document.getElementById("inventory");
-  box.innerHTML = "";
+    if (current < 0) {
+        current = 0;
+    }
 
-  inventory.forEach((item,index) => {
-
-    let low = item.current < item.required;
-
-    box.innerHTML += `
-      <div class="item">
-
-        <div class="item-name">
-          ${item.name}
-        </div>
-
-        <div class="quantity ${low ? "low" : ""}">
-          Required: ${item.required}
-          &nbsp; | &nbsp;
-          Current: ${item.current}
-        </div>
-
-        ${low ?
-          `<div class="low">
-          ⚠ NEED ${item.required-item.current}
-          </div>` : ""}
-
-        <div class="buttons">
-
-          <button class="used"
-          onclick="used(${index})">
-          − USED
-          </button>
-
-          <button class="restock"
-          onclick="restock(${index})">
-          + RESTOCKED
-          </button>
-
-        </div>
-
-      </div>
-    `;
-  });
-
-  updateStatus();
-  save();
+    element.innerText = current;
 }
 
-function used(index) {
-  if(inventory[index].current > 0) {
-    inventory[index].current--;
-    render();
-  }
-}
+function verifyCompartment() {
 
-function restock(index) {
-  inventory[index].current++;
-  render();
-}
+    const employee =
+        document.getElementById("employeeName").value.trim();
 
-function updateStatus() {
+    const verified =
+        document.getElementById("verified").checked;
 
-  let lowItems =
-    inventory.filter(item =>
-      item.current < item.required
+    const status =
+        document.getElementById("status");
+
+    if (employee === "") {
+        status.innerText =
+            "Please enter your name before verifying.";
+        status.className = "status warning";
+        return;
+    }
+
+    if (!verified) {
+        status.innerText =
+            "Please check the verification box.";
+        status.className = "status warning";
+        return;
+    }
+
+    const now = new Date();
+
+    document.getElementById("lastEmployee").innerText =
+        employee;
+
+    document.getElementById("lastTime").innerText =
+        now.toLocaleString();
+
+    status.innerText =
+        "✓ Compartment 1 Verified";
+
+    status.className =
+        "status good";
+
+    localStorage.setItem(
+        "quickCompUnit11-1Comp1Employee",
+        employee
     );
 
-  let status =
-    document.getElementById("status");
-
-  if(lowItems.length === 0) {
-
-    status.className = "ready";
-    status.innerHTML =
-      "✓ COMPARTMENT READY";
-
-  } else {
-
-    status.className = "not-ready";
-    status.innerHTML =
-      "⚠ NOT READY — " +
-      lowItems.length +
-      " ITEM(S) BELOW PAR";
-  }
+    localStorage.setItem(
+        "quickCompUnit11-1Comp1Time",
+        now.toLocaleString()
+    );
 }
 
-function save() {
-  localStorage.setItem(
-    "quickcomp-u11-1-c1",
-    JSON.stringify(inventory)
-  );
-}
+window.onload = function() {
 
-function load() {
-
-  let saved =
-    localStorage.getItem(
-      "quickcomp-u11-1-c1"
+    const employee = localStorage.getItem(
+        "quickCompUnit11-1Comp1Employee"
     );
 
-  if(saved) {
-    inventory = JSON.parse(saved);
-  }
-}
+    const time = localStorage.getItem(
+        "quickCompUnit11-1Comp1Time"
+    );
 
-load();
-render();
+    if (employee) {
+        document.getElementById("lastEmployee").innerText =
+            employee;
+    }
+
+    if (time) {
+        document.getElementById("lastTime").innerText =
+            time;
+    }
+};
 
 </script>
 
